@@ -1,8 +1,7 @@
 import App from "next/app";
 import React from "react";
-import { Provider } from "mobx-react";
+import { storesContext } from "../hooks/stores";
 
-import { StoreProvider } from "../hooks/Context";
 
 
 
@@ -32,11 +31,7 @@ class InSpace extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-        <StoreProvider>
-          <ThemeContext.Provider value={themes.dark}>
             <Component {...pageProps} />
-          </ThemeContext.Provider>
-        </StoreProvider>
     );
   }
 }

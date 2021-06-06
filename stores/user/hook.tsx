@@ -1,11 +1,12 @@
 import React from 'react'
-import { useLocalStore } from 'mobx-react' // 6.x or mobx-react-lite@1.4.0
-import { TUser, userStore } from './main'
+import { useLocalObservable } from 'mobx-react' // 6.x or mobx-react-lite@1.4.0
+import { userStore } from './main'
+import { TStore } from './main'
 
-const storeContext = React.createContext<TUser | null>(null)
+const storeContext = React.createContext<TStore | null>(null)
 
 export const UserSoreProvider = ({ children  }: any) => {
-  const store = useLocalStore(userStore)
+  const store = useLocalObservable(userStore)
   
   return <storeContext.Provider value={store}>{children}</storeContext.Provider>
 }

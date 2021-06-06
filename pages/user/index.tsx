@@ -1,4 +1,6 @@
 import { UserSoreProvider } from "../../stores/user/hook"
+import UserCard from "./card"
+import CreateUserForrm from "./create/form"
 import Header from "./Header"
 
 
@@ -6,10 +8,9 @@ import Header from "./Header"
 const User = () => {
     return (
         <UserSoreProvider>
-            
             <Header />
-            <h2> new user</h2>
-
+            <UserCard />
+            <CreateUserForrm />
         </UserSoreProvider>
     )
 }

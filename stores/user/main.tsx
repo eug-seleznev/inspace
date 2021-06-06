@@ -2,20 +2,37 @@ import axios from "axios"
 
 //interface
 export type TUser = {
-    name: string,
-    getGura: any,
-    HelloWorld: any
+    name?: string,
+
   }
   
   export function userStore() {
     // note the use of this which refers to observable instance of the store
     return {
-      friends: [] as TUser[],
-      makeFriend(name: any) {
-           this.friends[0] = name
+      users: [{
+        name: 'hello'
+      }] as TUser[],
+
+      makeFriend() {
+        return this.users.length
+      },
+
+      createUser(name: any) {
+
+        const newUser = {
+          name: name
+        }
+        console.log(newUser, 'user')
+        this.users.push(newUser)
       },
       get getGura() {
-        if(this.friends.some(friend => friend.name =='gura')) return 'gura here!!'
+        if(this.users.every(user => user.name !=='gura')) return 'gura not here!!'
+      },
+
+      get Users(){
+       return this.users.map((user, index) => {
+          return <p key={index}> {user.name}</p>
+        })
       },
 
       get HelloWorld() {
@@ -25,10 +42,7 @@ export type TUser = {
             </div>
           )
       },
-
-     async fetchData() {
-       
-     }
+      
     }
   }
   
