@@ -1,6 +1,7 @@
 import App from "next/app";
 import React from "react";
-import { storesContext } from "../hooks/stores";
+import { storesContext, UserSoreProvider } from "../hooks/stores";
+import { UserStoreProvider } from "../stores/user/hook";
 
 
 
@@ -31,8 +32,10 @@ class InSpace extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-            <Component {...pageProps} />
-    );
+      <UserStoreProvider>
+        <Component {...pageProps} />
+      </UserStoreProvider>
+    );    
   }
 }
 export default InSpace;

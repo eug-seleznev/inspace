@@ -1,49 +1,61 @@
 import axios from "axios"
+import { User } from "../../../shared/types"
+import { innerBackend } from "../../components/auth/helper"
+import {LoginData} from '../../interfaces/auth'
 
-//interface
-export type TUser = {
-    name?: string,
 
-  }
-  
+
+
   export function userStore() {
     // note the use of this which refers to observable instance of the store
     return {
-      users: [{
-        name: 'hello'
-      }] as TUser[],
+      user: {
+        firstname: '',
+        lastname: '',
+        fullname: '',
+        username: '',
+        email: '',
+        phone: '',
+        password: ''
+      } as User,
+      test: '',
 
-      makeFriend() {
-        return this.users.length
+
+      async registerUser(id: string) {
+
       },
 
-      createUser(name: any) {
+      async Login(LoginData:LoginData){
 
-        const newUser = {
-          name: name
+      },
+
+      async Auth(token: string) {
+
+      },
+     async Test(){
+   
+        try {
+          console.log('start')
+          const res = await innerBackend.get('/')
+          return this.test = res.data
+        } catch (err) {
+          return 'lol'
         }
-        console.log(newUser, 'user')
-        this.users.push(newUser)
-      },
-      get getGura() {
-        if(this.users.every(user => user.name !=='gura')) return 'gura not here!!'
-      },
-
-      get Users(){
-       return this.users.map((user, index) => {
-          return <p key={index}> {user.name}</p>
-        })
-      },
-
-      get HelloWorld() {
-          return (
-            <div>
-              <h3>hello world oh no</h3>
-            </div>
-          )
-      },
+        
+        
+        
       
+      },
+
+      get User () {
+        return this.user
+      },
+
+      get HelloWorld (){
+        return <p> {this.test}</p>
+      }
+
     }
   }
   
-  export type TStore = ReturnType<typeof userStore>
+  export type TUserStore = ReturnType<typeof userStore>
