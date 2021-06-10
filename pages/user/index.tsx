@@ -1,21 +1,24 @@
 import { useEffect } from "react"
-import { UserSoreProvider } from "../../stores/user/hook"
+import Auth from "../../components/auth/auth"
+import { UserStoreProvider, useUserStore } from "../../stores/user/hook"
 import UserCard from "./card"
 import CreateUserForrm from "./create/form"
+
 import Header from "./Header"
 
 
-
 const User = () => {
+    const userStore = useUserStore();
     useEffect(() => {
         
+        userStore.GetTemplate();
     }, [])
     return (
-        <UserSoreProvider>
+     <Auth>
             <Header />
             <UserCard />
             <CreateUserForrm />
-        </UserSoreProvider>
+     </Auth>
     )
 }
 

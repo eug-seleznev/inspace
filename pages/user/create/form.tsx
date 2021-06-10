@@ -1,30 +1,39 @@
 import { observer } from "mobx-react";
 import { useState } from "react"
-import { useStore } from "../../../stores/user/hook"
+import { useUserStore } from "../../../stores/user/hook";
+import {LoginData} from '../../../interfaces/auth'
 
 
 
-interface IUserForm  { 
-    name: string,
-
-}
 
 
 const CreateUserForrm = observer(() => {
-    const [formData, setFormData] = useState<IUserForm>()
-    const store = useStore();
+    const [formData, setFormData] = useState<LoginData>({
+        email: '',
+        password: ''
+    })
+    const store = useUserStore();
+
+    const onChange = (e: any) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
+    }
+
+
+
     const onSubmit = (e: any) => {
+        console.log(formData, 'helllo')
         e.preventDefault();
         //store call
-        store.createUser(formData)
-        console.log(store.makeFriend(), 'hey')
-
-
+        if(formData){
+            store.Login(formData)
+        }
     }
    
     return (
         <form onSubmit={onSubmit}>
-            <input type='text' id='name' onChange={(e) => setFormData(e.target.value)} />
+            <input type='text' name='email' onChange={onChange} />
+            <input type='text' name='password' onChange={onChange} />
+            <button type="submit"> submit</button>
         </form>
     )
 })

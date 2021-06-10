@@ -1,8 +1,7 @@
 import axios from "axios"
 import { User } from "../../../shared/types"
-import { innerBackend } from "../../components/auth/helper"
+import { innerBackend, setAuthToken, url } from "../../components/auth/helper"
 import {LoginData} from '../../interfaces/auth'
-
 
 
 
@@ -18,43 +17,50 @@ import {LoginData} from '../../interfaces/auth'
         phone: '',
         password: ''
       } as User,
-      test: '',
+      isAuth: false,
+      isError: false,
+      template: {},
 
 
       async registerUser(id: string) {
 
       },
 
-      async Login(LoginData:LoginData){
+      //@POST /users/auth {email:email,password:password} - авторизация
+      async Login(formData: LoginData){
+        try { 
+          const res = await axios.post(`${url}/users/auth`, formData)
+          const token = res.data.token
 
+          localStorage.setItem('token', token)
+          setAuthToken(token)
+          this.isAuth = true;
+
+        } catch (err) {
+            //todo errors on login form
+            console.log(err)
+        }
       },
 
       async Auth(token: string) {
 
       },
-     async Test(){
-   
-        try {
-          console.log('start')
-          const res = await innerBackend.get('/')
-          return this.test = res.data
-        } catch (err) {
-          return 'lol'
-        }
-        
-        
-        
-      
+
+      get UserEmail () {
+        return <p>{this.user.email}</p>
       },
 
-      get User () {
-        return this.user
+      async GetTemplate(){
+        const res = await innerBackend.get(`/users/template/get`)
+        this.template = res.data;
       },
 
-      get HelloWorld (){
-        return <p> {this.test}</p>
+      get GetTemplateData () {
+        return this.template as any
       }
+      
 
+ 
     }
   }
   

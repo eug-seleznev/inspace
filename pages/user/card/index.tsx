@@ -1,15 +1,15 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../stores/user/hook"
+import { useUserStore } from "../../../stores/user/hook";
 
 
 
 
 
 const UserCard = observer(() => {
-    const store = useStore();
+    const store = useUserStore();
     return (
         <div>
-            {store.Users}
+            <p>{store.GetTemplateData.title}</p>
         </div>
     )
 })

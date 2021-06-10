@@ -10,6 +10,7 @@ const Test = observer(()  => {
 
     useEffect(() => {
         store.Test();
+        // store.Login();
     }, [])
 
     

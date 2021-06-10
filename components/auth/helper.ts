@@ -1,7 +1,7 @@
 import axios from 'axios'
 
+export const url = process.env.APP_IP;
 
-export const url = process.env.REACT_APP_IP;
 
 
 
@@ -18,5 +18,9 @@ export const innerBackend = axios.create ({
             accept: 'application/json',        
         }       
     })
+
+
+//localStorage.setItem('token', payload.token);
+
 
 
